@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjg5v37icye3j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1j2el"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_axdbb"]
+
+[node name="PairOfMeshes" type="Node3D"]
+
+[node name="CubeMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0725, -1.85762, 0, 1.31354, 0.758372, -1.51674, 1.31354, 0.758372, 1.51674, 0, 0, 0.23225)
+mesh = SubResource("BoxMesh_1j2el")
+
+[node name="SphereMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.545, 0, 0, 0, 1.545, 0, 0, 0, 1.545, 3.02869, 0, 0)
+mesh = SubResource("SphereMesh_axdbb")
