@@ -1,10 +1,47 @@
-[gd_scene load_steps=3 format=3 uid="uid://cg35w2rysbxcb"]
+[gd_scene load_steps=8 format=3 uid="uid://cg35w2rysbxcb"]
 
 [ext_resource type="PackedScene" uid="uid://bwdbfol0yqi0s" path="res://Weapons/hitscan_weapon.tscn" id="1_hrtej"]
 [ext_resource type="PackedScene" uid="uid://dgs3wq42h1nj7" path="res://Weapons/SMG.glb" id="2_ops1r"]
 
-[node name="SMG" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_hrtej")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ops1r"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Curve" id="Curve_i2xpi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_54bti"]
+curve = SubResource("Curve_i2xpi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hpifs"]
+direction = Vector3(0, 0, -1)
+spread = 8.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_54bti")
+
+[sub_resource type="BoxMesh" id="BoxMesh_gnaxn"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="SMG" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_hrtej")]
 weapon_mesh = NodePath("SMG")
+muzzle_flash = NodePath("MuzzleFlash")
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_ops1r")]
 transform = Transform3D(0.999898, 0, 0.0142763, 0, 1, 0, -0.0142763, 0, 0.999898, 0.7, -0.35, -1)
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.3, -2.1)
+material_override = SubResource("StandardMaterial3D_ops1r")
+cast_shadow = 0
+emitting = false
+lifetime = 0.07
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_hpifs")
+draw_pass_1 = SubResource("BoxMesh_gnaxn")
