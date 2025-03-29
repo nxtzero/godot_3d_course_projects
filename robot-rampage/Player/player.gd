@@ -15,7 +15,7 @@ var hitpoints: int = max_hitpoints:
 			damage_animation_player.stop(false)
 			damage_animation_player.play("take_damage")
 		hitpoints = value
-		print(hitpoints)
+		#print(hitpoints)
 		if hitpoints <= 0:
 			#get_tree().quit()
 			game_over_menu.game_over()

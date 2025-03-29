@@ -128,7 +128,6 @@ script = ExtResource("1_2pb1h")
 shape = SubResource("CapsuleShape3D_2pb1h")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

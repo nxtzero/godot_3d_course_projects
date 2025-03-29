@@ -41,3 +41,6 @@ func last_weapon() -> void:
 	var index = get_current_index()
 	index = wrapi(index - 1, 0, get_child_count())
 	equip(get_child(index))
+
+func get_weapon_ammo() -> AmmoHandler.ammo_type:
+	return get_child(get_current_index()).ammo_type
