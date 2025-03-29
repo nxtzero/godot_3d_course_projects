@@ -10,6 +10,8 @@ The code is written and tested with Godot 4.4.
 ## Individual Projects:
 - 1: Learning godot
 - 2: Project Boost
+- 3: Barbarian Blaster
+- 4: Robo Rampage
 
 ## License
 
