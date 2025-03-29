@@ -1,35 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://coo51ahbmquqo"]
+[gd_scene load_steps=14 format=3 uid="uid://coo51ahbmquqo"]
 
 [ext_resource type="Script" uid="uid://dgg4i6gfccpsw" path="res://Enemy/enemy.gd" id="1_2pb1h"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xjnqo"]
+[ext_resource type="PackedScene" uid="uid://c14i4vvcettsn" path="res://Enemy/Drone.glb" id="2_px1sc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2pb1h"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2pb1h"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_px1sc"]
-size = Vector3(0.5, 0.2, 0.2)
 
 [sub_resource type="Animation" id="Animation_px1sc"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Visor:position")
+tracks/0/path = NodePath("Drone:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.5, 0.5)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visor:scale")
+tracks/1/path = NodePath("Drone:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -37,18 +30,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Visor:material_override:albedo_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_2pb1h"]
@@ -58,47 +39,35 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Visor:position")
+tracks/0/path = NodePath("Drone:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
+"times": PackedFloat32Array(0, 0.1, 0.5),
 "transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector3(0, 0.5, 0.5), Vector3(0, 0.5, 0.6), Vector3(0, 0.5, 0.5)]
+"values": [Vector3(0, 0.4, 0), Vector3(0, 0.4, 0.5), Vector3(0, 0.4, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visor:scale")
+tracks/1/path = NodePath("Drone:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
+"times": PackedFloat32Array(0, 0.1, 0.5),
 "transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1.5, 1.5, 1.5), Vector3(1, 1, 1)]
+"values": [Vector3(1, 1, 1), Vector3(1.2, 1.2, 1.2), Vector3(1, 1, 1)]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Visor:material_override:albedo_color")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -106,17 +75,54 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_am0pq"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Drone:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector3(0, 0.4, 0), Vector3(0, 0.3, 0), Vector3(0, 0.4, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_am0pq"]
 _data = {
 &"RESET": SubResource("Animation_px1sc"),
-&"attack": SubResource("Animation_2pb1h")
+&"attack": SubResource("Animation_2pb1h"),
+&"idle": SubResource("Animation_am0pq")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_px1sc"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_am0pq"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eqilm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ncf7h"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m6jha"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_glvfu"]
+states/attack/node = SubResource("AnimationNodeAnimation_px1sc")
+states/attack/position = Vector2(531, 70)
+states/idle/node = SubResource("AnimationNodeAnimation_am0pq")
+states/idle/position = Vector2(344, 52)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_eqilm"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_ncf7h"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_m6jha")]
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_2pb1h")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_xjnqo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_2pb1h")
@@ -124,12 +130,14 @@ shape = SubResource("CapsuleShape3D_2pb1h")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
 
-[node name="Visor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
-material_override = SubResource("StandardMaterial3D_2pb1h")
-mesh = SubResource("BoxMesh_px1sc")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_am0pq")
 }
+autoplay = "idle"
+
+[node name="Drone" parent="." instance=ExtResource("2_px1sc")]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_glvfu")
+anim_player = NodePath("../AnimationPlayer")
